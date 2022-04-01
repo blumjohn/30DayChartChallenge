@@ -1,0 +1,89 @@
+---
+title: "Chart 1 - Part to Whole \n 30 Day Chart Challenge"
+author: "John Blum"
+date: "4/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,warnings=FALSE,message=FALSE)
+```
+
+# Load Libraries and Data
+```{r}
+
+library(readxl)
+dgap <- read_excel("women.xlsx",sheet="Early Gap")
+```
+
+
+# Plot Data
+```{r,fig.width=8,fig.height=12}
+library(extrafont)
+library(echarts4r)
+library(waffle)
+
+# extrafont::font_import(path="~/Downloads",pattern="awesome",prompt=FALSE)
+ loadfonts(device="pdf")
+
+
+
+wr <- 5
+
+w1 <- waffle(c(Women=round(dgap$`Percent Women`[1]),Men=100-round(dgap$`Percent Women`[1])),
+             rows=wr,
+             colors=c("royalblue4","gray"),
+             use_glyph=c("male","female"),
+             glyph_size=6,
+             title="Percent women employees to men \n\nEntry Level",
+             legend_pos="none"
+)
+
+w2 <- waffle(c(Women=round(dgap$`Percent Women`[2]),Men=100-round(dgap$`Percent Women`[2])),
+             rows=wr,
+             colors=c("royalblue4","gray"),
+             use_glyph=c("male","female"),
+             glyph_size=6,
+             title="Manager",
+             legend_pos="none"
+)
+
+w3 <- waffle(c(Women=round(dgap$`Percent Women`[3]),Men=100-round(dgap$`Percent Women`[3])),
+             rows=wr,
+             colors=c("royalblue4","gray"),
+             use_glyph=c("male","female"),
+             glyph_size=6,
+             title="Senior Manager",
+             legend_pos="none"
+)
+
+w4 <- waffle(c(Women=round(dgap$`Percent Women`[4]),Men=100-round(dgap$`Percent Women`[4])),
+             rows=wr,
+             colors=c("royalblue4","gray"),
+             use_glyph=c("male","female"),
+             glyph_size=6,
+             title="Vice President",
+             legend_pos="none"
+)
+
+w5 <- waffle(c(Women=round(dgap$`Percent Women`[5]),Men=100-round(dgap$`Percent Women`[5])),
+             rows=wr,
+             colors=c("royalblue4","gray"),
+             use_glyph=c("male","female"),
+             glyph_size=6,
+             title="Senior Vice President",
+             legend_pos="none"
+)
+
+w6 <- waffle(c(Women=round(dgap$`Percent Women`[6]),Men=100-round(dgap$`Percent Women`[6])),
+             rows=wr,
+             colors=c("royalblue4","gray"),
+             use_glyph=c("male","female"),
+             glyph_size=6,
+             title="C-Suite",
+             legend_pos="none"
+)
+
+iron(w1,w2,w3,w4,w5,w6)
+```
+
