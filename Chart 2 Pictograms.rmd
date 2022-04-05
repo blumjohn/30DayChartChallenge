@@ -1,0 +1,65 @@
+---
+title: "Chart 2"
+author: "John Blum"
+date: "4/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE)
+```
+
+# Load Battery Storage Feature Table
+```{r}
+library(readxl)
+library(tidyverse)
+library(reactablefmtr)
+df <-  read_excel("chart2.xlsx",sheet="Features")
+
+ft <- reactable(df,
+columns = list(
+`Battery Cell` = colDef(cell = icon_assign(df,icon = "battery"),align="left"),
+`Battery Rack` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`PCS` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`BMS` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`EMS` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`Energy Trading` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`System Integration` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`O&M` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`EPC` = colDef(cell = icon_assign(df,icon="battery"),align="left"),
+`Project Development` = colDef(cell = icon_assign(df,icon="battery"),align="left")
+),compact=TRUE,bordered=TRUE,width=1600) %>%  add_title("Competition of Stationary Battery Storage Integrators") %>% add_subtitle("Source: BNEF")
+
+ft
+save_reactable_test(ft,"02_featuretable.png")
+
+
+
+
+```
+
+# Capacity
+```{r}
+
+df2 <-  read_excel("chart2.xlsx",sheet="Capacity")
+
+library(extrafont)
+library(echarts4r)
+library(waffle)
+library(tidyverse)
+library(fontawesome)
+library(emojifont)
+
+
+ct <- reactable(df2,
+columns = list(
+`GWh` = colDef(cell = icon_assign(df2,icon = "battery",show_values = "right"),align="left")),
+compact=TRUE,bordered=TRUE) %>%  add_title("GWh of Stationary Battery Storage Integrators") %>% add_subtitle("Source: BNEF")
+
+ct
+save_reactable_test(ct,"02_capcitytable.png")
+
+
+
+```
+
