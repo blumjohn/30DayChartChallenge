@@ -1,0 +1,52 @@
+---
+title: "Chart 3 - Historical"
+author: "John Blum"
+date: '2022-04-03'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,message=FALSE,warning=FALSE)
+```
+
+# Load Data
+
+
+```{r }
+library("comtradr")
+library("tidyverse")
+
+dfs <- ct_search(reporters = "USA", 
+                partners = c("World","China"), 
+                trade_direction = c("imports","exports"),
+                start_date=2016,
+                end_date=2020,
+                commod_codes="72")
+# Get Region
+#library(countrycode)
+#df$region <- countrycode(df$partner_iso,origin= "iso3c",destination="region")
+
+#dfw <- filter(dfs, partner == "World")
+#dfc <- filter(dfs, partner == "China")
+
+
+
+```
+
+# Plots
+
+
+```{r,fig.width=7 }
+library(scales)
+
+# Create facet annotation text
+f_labels <- data.frame(x = c(2018.5,2018.5,2018.5,2018.5),y=c(20e9,20e9,20e9,2039), label = c("Trump's Tariffs", "Trump's Tariffs", "Trump's Tariffs","Trump's Tariffs"))
+
+
+
+ggplot(data=dfs,aes(x=year,y=trade_value_usd)) + geom_line() + facet_wrap(~partner + trade_flow,scales = "free_y") + theme_classic() + labs(title="Chart 3 - #30DayChartChallenge - Historical",subtitle="US Steel Trade Flows",caption="Source: UN Comtrade API \n Shaded rectangle is Trump's trade war \n John Blum | https://www.linkedin.com/in/blumajohn/ ") + ylab("US Dollars") + scale_y_continuous(labels = dollar) + annotate(geom="rect",xmin=2018.184,xmax=2020,ymin=0,ymax=Inf,alpha=0.2,fill="gray")
+
+
+ggsave("chart3.png")
+
+```
