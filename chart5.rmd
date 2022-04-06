@@ -1,0 +1,20 @@
+---
+title: "Chart 5"
+author: "John Blum"
+date: '2022-04-05'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Data
+```{r}
+library(readxl)
+library(tidyverse)
+
+df <- read_xlsx("chart5.xlsx",sheet="Long")
+
+```
+
